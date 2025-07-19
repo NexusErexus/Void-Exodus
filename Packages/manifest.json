@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.cysharp.unitask": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask",
     "com.unity.2d.sprite": "1.0.0",
     "com.unity.ai.navigation": "2.0.8",
     "com.unity.burst": "1.8.21",
@@ -14,6 +15,7 @@
     "com.unity.multiplayer.center": "1.0.0",
     "com.unity.nuget.mono-cecil": "1.11.4",
     "com.unity.package-validation-suite": "0.22.0-preview",
+    "com.unity.probuilder": "6.0.5",
     "com.unity.render-pipelines.core": "17.1.0",
     "com.unity.render-pipelines.universal": "17.1.0",
     "com.unity.render-pipelines.universal-config": "17.0.3",

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
-    public int CurrentHealth {  get; private set; }
+    public float CurrentHealth {  get; private set; }
     
     [SerializeField] private int enemyHealth;
     //private int currentHealth;
@@ -23,7 +23,7 @@ public class EnemyHealth : MonoBehaviour
         
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
         CurrentHealth -= damage;
         if (CurrentHealth <= 0)
