@@ -1,49 +1,31 @@
-using StarterAssets;
-using UnityEngine;
-using Cinemachine.Utility;
 using Cinemachine;
+using StarterAssets;
+using System;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SpawnPlayerAfterFall : MonoBehaviour
 {
     [SerializeField] GameObject player;
-    string getCurrentSceneIndex;
+    [SerializeField] CinemachineVirtualCamera virtualCamera;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Awake()
-    {
-        string getCurrentSceneIndex = SceneManager.GetActiveScene().name;
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public static event Action<FirstPersonController> OnPlayerSpawned;
 
-    public int GetIndexScene()
+    void RespawnPlayer()
     {
-        return SceneManager.GetActiveScene().buildIndex;
-    }
-
-    public void ReloadCurrentScene()
-    {
-        int inxdexOfCurrentScene = GetIndexScene();
-        SceneManager.LoadScene(inxdexOfCurrentScene);
+        GameObject newPlayer = Instantiate(player, player.transform.position, player.transform.rotation); //respawn player
+        var playerController = newPlayer.GetComponent<FirstPersonController>(); //update player's component
+        virtualCamera.m_Follow = newPlayer.transform.GetChild(0); //reassign camera to player's camera root
+        OnPlayerSpawned?.Invoke(playerController); 
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            /*Destroy(other.gameObject);
-            Instantiate(player, player.transform.position, player.transform.rotation);
-
-            virtualCamera = GetComponent<CinemachineVirtualCamera>();
-            Transform newCameraFollow = player.transform;
-            virtualCamera.m_Follow = newCameraFollow;*/
-            ReloadCurrentScene();
-        }
-            
+            Destroy(other.gameObject);
+            Invoke(nameof(RespawnPlayer), 0.05f);
+        } 
     }
 }
