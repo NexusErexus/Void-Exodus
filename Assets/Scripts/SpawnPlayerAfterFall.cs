@@ -1,13 +1,13 @@
-using Cinemachine;
 using StarterAssets;
 using System;
+using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SpawnPlayerAfterFall : MonoBehaviour
 {
     [SerializeField] GameObject player;
-    [SerializeField] CinemachineVirtualCamera virtualCamera;
+    [SerializeField] CinemachineCamera reattachCamera;
 
 
     public static event Action<FirstPersonController> OnPlayerSpawned;
@@ -16,7 +16,7 @@ public class SpawnPlayerAfterFall : MonoBehaviour
     {
         GameObject newPlayer = Instantiate(player, player.transform.position, player.transform.rotation); //respawn player
         var playerController = newPlayer.GetComponent<FirstPersonController>(); //update player's component
-        virtualCamera.m_Follow = newPlayer.transform.GetChild(0); //reassign camera to player's camera root
+        reattachCamera.Follow = newPlayer.transform.GetChild(0); //reassign camera to player's camera root
         OnPlayerSpawned?.Invoke(playerController); 
     }
 
